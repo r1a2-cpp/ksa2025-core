@@ -1,18 +1,18 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-
-dotenv.config();
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-app.get("/api/hello", (req, res) => {
-    res.json({ message: "Hello, World!" });
-});
+// Minimal Node HTTP server (no external deps)
+const http = require('http');
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+
+const server = http.createServer((req, res) => {
+  if (req.url === "/" || req.url === "/index.html") {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(`<h1>Hello, world!</h1><p>Deployed on Railway — ${new Date().toLocaleString()}</p>`);
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Not Found');
+  }
+});
+
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

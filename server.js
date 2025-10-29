@@ -7,7 +7,7 @@ app.use(express.json());
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("🚂 Railway Backend is running successfully!");
+  res.send("Backend is running successfully!");
 });
 
 app.get("/api/hello", (req, res) => {

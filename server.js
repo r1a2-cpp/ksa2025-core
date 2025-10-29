@@ -1,9 +1,17 @@
 import express from "express";
+import {connectDB} from "./src/config/db.js";
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(express.json());
+connectDB();
+
+app.get('/db',(req,res)=>{
+  res.send("server running with mongodb connected");
+});
 
 // Routes
 app.get("/", (req, res) => {
@@ -11,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from the backend!" });
+  res.json({ message: "Hello from the backend!", timestamp: new Date() });
 });
 
 // Start server
